@@ -1,280 +1,211 @@
-# Math Worksheet Template
+# AI Instructions for Math Worksheet Template
 
-A student-friendly math worksheet template with fill-in fields for Name and Date, suitable for elementary through high school math classes.
-
----
-
-## Files
-
-| File | Purpose |
-|------|---------|
-| `public/template/worksheet.typ` | Template logic - styling, layout, helper functions |
-| `public/template/main.typ` | **EDIT THIS** - Worksheet problem content |
-| `public/template/demo.typ` | Examples and reference for all features |
-| `public/template/assets/` | Store images here (PNG, JPG, SVG, WebP) |
-
-**Full Syntax Guide**: See `SYNTAX.md` at project root.
+This document tells you how to work with this Typst math worksheet template.
 
 ---
 
-## Quick Start
+## File Structure
 
-Edit `main.typ` to change worksheet content:
+```
+public/template/
+├── main.typ        ← EDIT THIS (worksheet content)
+├── worksheet.typ   ← DO NOT EDIT (template logic)
+├── demo.typ        ← REFERENCE THIS (examples)
+└── assets/         ← Place images here
+```
+
+---
+
+## What to MODIFY
+
+### `public/template/main.typ`
+
+This is the **only file you should edit** for worksheet content. It contains:
+- Worksheet title and settings
+- Problem content organized by sections
+
+---
+
+## What to REFERENCE (Read-Only)
+
+### `public/template/demo.typ`
+
+Read this file to see working examples of all template features. Do not modify it.
+
+### `public/template/worksheet.typ`
+
+Contains template logic. Read to understand available functions, but do not modify unless explicitly asked to change template behavior.
+
+### `SYNTAX.md` (project root)
+
+Complete Typst syntax reference. Read when you need math syntax help.
+
+---
+
+## Template Usage
+
+### Basic Structure
 
 ```typst
-#import "/worksheet.typ": worksheet, instructions, points
+#import "/worksheet.typ": *
 
 #show: worksheet.with(
-  title: "Algebra Practice",
-  class: "Grade 8 Math",
+  title: "Worksheet Title",
+  class: "Class Name",
+  show-answers: false,  // true = answer key mode
 )
 
-#instructions[Show all your work.]
+#instructions[Instructions text here.]
 
 = Section Title
 
-+ First problem: $2x + 5 = 13$
-
-+ Second problem: $frac(24, 6) =$
+#problem[Problem text here.]
 ```
+
+### Configuration Options
+
+| Parameter | Default | Description |
+|-----------|---------|-------------|
+| `title` | "Math Worksheet" | Worksheet title |
+| `class` | "Mathematics" | Class/course name |
+| `show-name-field` | true | Show Name field |
+| `show-date-field` | true | Show Date field |
+| `show-answers` | false | Show answers in red |
+| `paper` | "a4" | Paper size |
+| `font` | "Noto Sans" | Font family |
 
 ---
 
-## Configuration Options
+## Available Functions
 
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `title` | string | "Math Worksheet" | Worksheet title |
-| `class` | string | "Mathematics" | Class/course name |
-| `show-name-field` | bool | true | Show "Name: _____" field |
-| `show-date-field` | bool | true | Show "Date: _____" field |
-| `paper` | string | "a4" | Paper size ("a4", "us-letter") |
-| `margin` | length | 2cm | Page margins |
-| `font` | string | "Noto Sans" | Font family |
-| `font-size` | length | 11pt | Base font size |
-
----
-
-## Helper Functions
-
-The template provides these helper functions:
+### Problems
 
 ```typst
-#import "/worksheet.typ": worksheet, instructions, points, answer-line, workspace
+#problem[Question text]                    // Auto-numbered problem
+#problem(points: 5)[Question]              // With point value
+#problem(space: 4cm)[Question]             // Custom workspace height
 
-#instructions[Show all your work.]     // Blue instruction box
-
-+ #points(5) Solve for x...            // Show point value
-
-Fill in: x = #answer-line()            // Underline for answers
-
-#workspace(height: 3cm)                // Add space for work
+#subproblem[Part text]                     // (a), (b), (c) sub-parts
+#subproblem(points: 2)[Part]               // Sub-part with points
 ```
 
----
-
-## Writing Problems
-
-### Numbered Problems
-
-Use `+` for automatically numbered problems:
+### Workspaces
 
 ```typst
-+ Calculate: $5 times 8 =$
-
-+ Solve for $x$: $2x + 3 = 11$
+#workspace(height: 4cm)                    // Blank space
+#lined-workspace(lines: 5)                 // Lined writing area
+#box-workspace(height: 3cm)                // Bordered box
+#grid-workspace(height: 5cm)               // Graph paper
 ```
 
-### Section Headings
-
-Group problems by topic:
+### Answer Key (only visible when show-answers: true)
 
 ```typst
-= Algebra
-
-+ Problem 1...
-
-= Geometry
-
-+ Problem 2...
+#answer[Answer text]                       // Inline answer
+#answer-line(body: [5])                    // Fill-in line with answer
+#answer-box(body: [Long answer], height: 2cm)
+#blank                                     // Blank in equations
+#boxed[answer]                             // Blank that shows answer
 ```
 
-### Two-Column Layout
+### Multiple Choice
 
 ```typst
-#grid(
-  columns: (1fr, 1fr),
-  gutter: 2em,
-  [+ $15 + 27 =$],
-  [+ $48 - 19 =$],
+#choices(                                  // Vertical layout
+  [Option A],
+  [Option B],
+  [Option C],
+  [Option D],
+  correct: "B",                            // Highlighted in answer key
+  spacing: 1.5em,                          // For tall content like fractions
 )
+
+#choices-row([A], [B], [C], [D], correct: "A")  // Horizontal layout
+```
+
+### Layout
+
+```typst
+#instructions[Text]                        // Blue instruction box
+#note[Text]                                // Italic note
+#divider()                                 // Horizontal line
+#new-page()                                // Page break
+#new-page(title: "Part 2")                 // Page break with heading
+#points(5)                                 // Display "(5 pts)"
 ```
 
 ---
 
 ## Math Syntax Quick Reference
 
-| Type | Syntax | Result |
-|------|--------|--------|
-| Fraction | `$frac(a, b)$` | a over b |
-| Square root | `$sqrt(x)$` | Square root |
-| Superscript | `$x^2$` | x squared |
-| Subscript | `$x_1$` | x sub 1 |
-| Multiplication | `$times$` | × |
-| Division | `$div$` | ÷ |
-| Greek | `$pi$`, `$theta$` | π, θ |
-
-### Block Equations
-
 ```typst
+$frac(a, b)$          // Fraction
+$sqrt(x)$             // Square root
+$x^2$                 // Superscript
+$x_1$                 // Subscript
+$times$ $div$         // × ÷
+$pi$ $theta$          // Greek letters
+$>=$ $<=$ $eq.not$    // Comparisons
+$integral_0^1 f(x) d x$  // Integral
+
+// Block equation (centered)
 $ x = frac(-b plus.minus sqrt(b^2 - 4a c), 2a) $
-```
 
-### Aligned Equations
-
-```typst
+// Aligned equations
 $
 3x + 2 &= 14 \
-3x &= 12 \
 x &= 4
 $
-```
 
-### Systems of Equations
-
-```typst
-$
-cases(
-  x + y = 10,
-  x - y = 4
-)
-$
+// System of equations
+$ cases(x + y = 10, x - y = 4) $
 ```
 
 ---
 
-## Grade Level Examples
+## Key Behaviors
 
-### Elementary (Grades 3-5)
+1. **Problem numbering resets** on each `= Section` heading
+2. **Sub-problem letters reset** on each new `#problem`
+3. **Answer key mode**: Set `show-answers: true` to reveal all answers in red
+4. **Images**: Place in `assets/` folder, reference as `#image("/assets/name.png")`
 
+---
+
+## Common Tasks
+
+### Create a new worksheet
+1. Edit `main.typ`
+2. Change `title` and `class` in `worksheet.with(...)`
+3. Replace content after `#instructions[...]`
+
+### Add problems with workspace
 ```typst
-= Addition
-
-+ $145 + 237 =$
-
-+ $500 - 168 =$
-
-= Multiplication
-
-+ $12 times 7 =$
+#problem[Solve for $x$: $2x + 5 = 13$]
+// Problem has default 2.5em space, or use:
+#problem(space: 4cm)[Problem needing more space]
 ```
 
-### Middle School (Grades 6-8)
-
+### Add multiple choice question
 ```typst
-= Fractions
-
-+ Simplify: $frac(24, 36) =$
-
-= Algebra
-
-+ Solve: $3x - 5 = 16$
+#problem(space: 0em)[What is $3^2$?]
+#choices([3], [6], [9], [12], correct: "C")
 ```
 
-### High School (Grades 9-12)
+### Create answer key version
+Change `show-answers: false` to `show-answers: true`
 
+### Add multi-part problem
 ```typst
-= Quadratic Equations
-
-+ Solve using the quadratic formula:
-  $ x^2 - 5x + 6 = 0 $
-
-= Trigonometry
-
-+ Find $sin(30 degree)$ and $cos(60 degree)$.
+#problem[Consider the function $f(x) = x^2$.]
+#subproblem[Find $f(3)$.]
+#subproblem[Find $f(-2)$.]
 ```
 
 ---
 
-## Layout Tips
+## Do NOT
 
-### Adding an Instructions Box
-
-```typst
-#instructions[
-  Show all your work. Circle your final answers.
-]
-```
-
-### Adding Space for Work
-
-```typst
-+ Solve: $2x + 5 = 17$
-
-#v(3cm)  // 3cm of vertical space
-```
-
-### Formula Reference Box
-
-```typst
-#rect(
-  width: 100%,
-  fill: gray.lighten(90%),
-  stroke: 0.5pt,
-  inset: 10pt,
-  radius: 4pt,
-)[
-  *Formulas:*
-  - Rectangle: $A = l times w$
-  - Circle: $A = pi r^2$
-]
-```
-
-### Multiple Choice
-
-```typst
-+ What is $3^2 + 4^2$?
-
-  #grid(
-    columns: (1fr, 1fr, 1fr, 1fr),
-    [(A) 7], [(B) 12], [(C) 25], [(D) 49]
-  )
-```
-
----
-
-## Available Fonts
-
-```typst
-font: "Noto Sans"        // Clean sans-serif (default)
-font: "Noto Serif"       // Classic serif
-font: "Inter"            // Modern UI
-font: "Linux Libertine"  // Academic serif
-```
-
----
-
-## AI Instructions
-
-When editing this template:
-
-1. **Edit `public/template/main.typ`** for worksheet content
-2. **Reference `public/template/demo.typ`** for syntax examples
-3. **Don't modify `worksheet.typ`** unless changing template behavior
-4. **Use absolute paths** for imports: `#import "/worksheet.typ": ...`
-
-### What to Edit
-- Problem content in `main.typ`
-- Configuration in `worksheet.with(...)`
-
-### What NOT to Edit
-- `worksheet.typ` (template logic)
-- Files outside `public/template/`
-
----
-
-## Need Help?
-
-1. Check `demo.typ` for working examples
-2. See `SYNTAX.md` for complete reference
-3. Visit https://typst.app/docs for official documentation
+- Modify `worksheet.typ` unless asked to change template behavior
+- Modify files outside `public/template/`
+- Use relative imports (always use `/worksheet.typ` not `worksheet.typ`)

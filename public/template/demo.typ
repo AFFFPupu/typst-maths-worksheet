@@ -4,74 +4,224 @@
 // Use this as a reference when creating your worksheets.
 // ============================================================================
 
-#import "/worksheet.typ": worksheet, instructions, workspace, points, answer-line, problem-grid
+#import "/worksheet.typ": *
 
 #show: worksheet.with(
   title: "Math Worksheet Feature Demo",
   class: "Template Reference",
   show-date-field: true,
   show-name-field: true,
+  show-answers: false,  // Set to true to see answer key
 )
 
 // ============================================================================
-// SECTION 1: BASIC PROBLEM FORMATS
+// SECTION 1: PROBLEM FUNCTION (RECOMMENDED)
 // ============================================================================
 
-= Basic Problem Formats
+= Problem Function
 
-== Simple Numbered Problems
+The `#problem` function provides automatic numbering that works with workspaces.
 
-Use `+` to create automatically numbered problems:
+#problem[What is $5 + 7$?]
 
-+ What is $5 + 7$?
+#problem[Calculate $12 times 8$.]
 
-+ Calculate $12 times 8$.
+#problem[Simplify $frac(24, 6)$.]
 
-+ Simplify $frac(24, 6)$.
+== Problems with Points
 
-== Problems with Point Values
+#problem(points: 2)[Solve: $x + 5 = 12$]
 
-Use `#points(n)` to show point values:
+#problem(points: 3)[Factor: $x^2 - 9$]
 
-+ #points(2) Solve: $x + 5 = 12$
+#answer[$(x+3)(x-3)$]
 
-+ #points(3) Factor: $x^2 - 9$
+== Custom Workspace
 
-+ #points(5) Solve the system:
-  $
-  2x + y &= 7 \
-  x - y &= 2
-  $
+#problem(space: 4cm)[Solve for $x$: $2x + 7 = 15$]
+
+#problem(space: 3cm)[Find the area of a triangle with base $10$ cm and height $6$ cm.]
+
+= Sub-Problems
+
+Use `#subproblem` for multi-part questions with (a), (b), (c) numbering.
+
+#problem(points: 6)[Evaluate the following:]
+#subproblem(points: 2)[$3^4$]
+#subproblem(points: 2)[$sqrt(144)$]
+#subproblem(points: 2)[$frac(15!, 13!)$]
+
+#problem[Consider the function $f(x) = x^2 - 4x + 3$.]
+#subproblem[Find $f(0)$.]
+#subproblem[Find all $x$ where $f(x) = 0$.]
+#subproblem[Sketch the graph of $f(x)$.]
 
 // ============================================================================
-// SECTION 2: MATH EXPRESSIONS
+// SECTION 2: WORKSPACE VARIANTS
+// ============================================================================
+
+= Workspace Types
+
+== Basic Workspace
+
+Adds vertical space for student work:
+
+#problem(space: 0em)[Solve the equation: $3x - 7 = 14$]
+#workspace(height: 2cm)
+
+== Lined Workspace
+
+For written explanations:
+
+#problem(space: 0em)[Explain why $0.999... = 1$.]
+#lined-workspace(lines: 4)
+
+== Box Workspace
+
+Bordered area for neat work:
+
+#problem(space: 0em)[Show your calculation for $125 div 5$.]
+#box-workspace(height: 2.5cm)
+
+== Grid Workspace
+
+For graphs and geometric constructions:
+
+#problem(space: 0em)[Plot the points $A(2, 3)$, $B(-1, 4)$, and $C(3, -2)$.]
+#grid-workspace(height: 4cm)
+
+// ============================================================================
+// SECTION 3: ANSWER KEY FEATURES
+// ============================================================================
+
+= Answer Key Features
+
+These features appear only when `show-answers: true` is set.
+
+== Inline Answers
+
+What is $7 times 8$? #answer[56]
+
+The derivative of $x^3$ is #answer[$3x^2$].
+
+== Answer Lines
+
+Fill in the blank: $sqrt(64) =$ #answer-line(body: [8])
+
+The value of $pi$ is approximately #answer-line(body: [3.14], width: 2cm).
+
+== Answer Box
+
+#problem(space: 0em)[Explain the Pythagorean theorem.]
+#answer-box(body: [In a right triangle, $a^2 + b^2 = c^2$ where $c$ is the hypotenuse.], height: 2cm)
+
+== Fill-in-the-Blank Math
+
+Use `#blank` for blanks in equations:
+
+$ 2 + #blank = 5 $
+
+Use `#boxed` for blanks that show answers:
+
+$ x^2 - 4 = (x + 2)(#boxed[$x - 2$]) $
+
+// ============================================================================
+// SECTION 4: MULTIPLE CHOICE
+// ============================================================================
+
+= Multiple Choice
+
+#problem(space: 0em)[What is the value of $3^2 + 4^2$?]
+#choices(
+  [7],
+  [12],
+  [25],
+  [49],
+  correct: "C",
+)
+
+#problem(space: 0em)[Which expression equals $2(x + 3)$?]
+#choices(
+  [$2x + 3$],
+  [$2x + 6$],
+  [$x + 6$],
+  [$2x + 5$],
+  columns: 2,
+  correct: "B",
+)
+
+#problem(space: 0em)[What is $sqrt(81)$?]
+#choices-row(
+  [3],
+  [9],
+  [27],
+  [81],
+  correct: "B",
+)
+
+// ============================================================================
+// SECTION 5: LAYOUT HELPERS
+// ============================================================================
+
+#new-page(title: "Layout Helpers")
+
+== Instructions Box
+
+#instructions[
+  Show all your work. Circle your final answers. No calculators allowed.
+]
+
+== Section Notes
+
+#note[The following problems review material from Chapter 3.]
+
+#problem[Simplify: $4a + 3b - 2a + 5b$]
+
+== Divider
+
+#divider()
+
+== Problem Grid
+
+Use grids for side-by-side problems (these use `+` enum style):
+
+#grid(
+  columns: (1fr, 1fr),
+  gutter: 2em,
+  [
+    + $15 + 27 =$
+    + $48 - 19 =$
+    + $6 times 7 =$
+  ],
+  [
+    + $56 div 8 =$
+    + $5^3 =$
+    + $sqrt(81) =$
+  ],
+)
+
+// ============================================================================
+// SECTION 6: MATH EXPRESSIONS REFERENCE
 // ============================================================================
 
 = Math Expressions
 
-== Inline Math
+== Inline vs Block
 
-Use single `$` for inline: The area formula is $A = pi r^2$.
+Inline math: The area formula is $A = pi r^2$.
 
-== Block Math
-
-Use `$ ... $` with spaces for centered equations:
-
+Block math (centered):
 $ x = frac(-b plus.minus sqrt(b^2 - 4a c), 2a) $
 
 == Common Operations
 
-*Fractions:*
-$ frac(1, 2) + frac(1, 3) = frac(5, 6) $
+*Fractions:* $frac(1, 2) + frac(1, 3) = frac(5, 6)$
 
-*Square roots:*
-$ sqrt(16) = 4 quad sqrt(x^2 + y^2) $
+*Square roots:* $sqrt(16) = 4$, $sqrt(x^2 + y^2)$
 
-*Exponents:*
-$ 2^3 = 8 quad x^(n+1) $
+*Exponents:* $2^3 = 8$, $x^(n+1)$
 
-*Subscripts:*
-$ x_1, x_2, x_3 quad a_(i+1) $
+*Subscripts:* $x_1, x_2, x_3$, $a_(i+1)$
 
 == Greek Letters
 
@@ -95,83 +245,12 @@ cases(
 $
 
 // ============================================================================
-// SECTION 3: PROBLEM LAYOUTS
+// SECTION 7: SPECIAL BOXES
 // ============================================================================
 
-= Problem Layouts
+= Special Content Boxes
 
-== Two-Column Grid
-
-Use grids for side-by-side problems:
-
-#grid(
-  columns: (1fr, 1fr),
-  gutter: 2em,
-  [
-    + $15 + 27 =$
-    + $48 - 19 =$
-    + $6 times 7 =$
-  ],
-  [
-    + $56 div 8 =$
-    + $3^4 =$
-    + $sqrt(81) =$
-  ],
-)
-
-== Problem with Work Space
-
-Add space for student work using `#v(height)`:
-
-+ Solve for $x$: $quad 2x + 7 = 15$
-
-#v(2.5cm)
-
-+ Find the area of a triangle with base $10$ cm and height $6$ cm.
-
-#v(2.5cm)
-
-// ============================================================================
-// SECTION 4: SPECIAL ELEMENTS
-// ============================================================================
-
-= Special Elements
-
-== Instructions Box
-
-#instructions[
-  Show all your work. Circle your final answers. No calculators allowed.
-]
-
-== Answer Lines
-
-Fill in the blank: The value of $pi$ is approximately #answer-line(width: 1.5cm).
-
-The solution to $x + 5 = 12$ is $x =$ #answer-line().
-
-== Tables for Data
-
-#table(
-  columns: (auto, auto, auto, auto),
-  align: center,
-  stroke: 0.5pt,
-  [*$x$*], [*$x^2$*], [*$2x$*], [*$x^2 + 2x$*],
-  [$1$], [$1$], [$2$], [$3$],
-  [$2$], [$4$], [$4$], [$8$],
-  [$3$], [$9$], [$6$], [$15$],
-  [$4$], [], [], [],
-  [$5$], [], [], [],
-)
-
-Complete the table above.
-
-// ============================================================================
-// SECTION 5: GEOMETRY
-// ============================================================================
-
-= Geometry Problems
-
-== Formulas Reference
+== Formula Reference Box
 
 #rect(
   width: 100%,
@@ -186,53 +265,7 @@ Complete the table above.
   - Triangle: $A = frac(1, 2) b h$
 ]
 
-#v(0.5em)
-
-+ A rectangle has length $8$ cm and width $5$ cm. Find its area and perimeter.
-
-+ A circle has diameter $14$ cm. Find its circumference. (Use $pi = frac(22, 7)$)
-
-// ============================================================================
-// SECTION 6: WORD PROBLEMS
-// ============================================================================
-
-= Word Problems
-
-+ Maria has \$50. She buys 3 books at \$8 each and 2 pens at \$2 each. How much money does she have left?
-
-#v(2cm)
-
-+ A train leaves Station A at 9:00 AM traveling at 60 km/h. Another train leaves Station B at 10:00 AM traveling toward Station A at 80 km/h. If the stations are 280 km apart, at what time will they meet?
-
-#v(2cm)
-
-// ============================================================================
-// SECTION 7: MULTIPLE CHOICE
-// ============================================================================
-
-= Multiple Choice
-
-+ What is the value of $3^2 + 4^2$?
-
-  #grid(
-    columns: (1fr, 1fr, 1fr, 1fr),
-    [(A) 7], [(B) 12], [(C) 25], [(D) 49]
-  )
-
-+ Which expression is equivalent to $2(x + 3)$?
-
-  #grid(
-    columns: (1fr, 1fr),
-    gutter: 1em,
-    [(A) $2x + 3$], [(B) $2x + 6$],
-    [(C) $x + 6$], [(D) $2x + 5$]
-  )
-
-// ============================================================================
-// SECTION 8: CHALLENGE SECTION
-// ============================================================================
-
-= Challenge Problems
+== Challenge Box
 
 #rect(
   width: 100%,
@@ -244,34 +277,35 @@ Complete the table above.
   *Bonus:* These problems are worth extra credit.
 ]
 
-+ #points(10) Prove that the sum of any three consecutive integers is divisible by 3.
+== Tables
 
-#v(3cm)
-
-+ #points(10) If $f(x) = x^2 - 4x + 3$, find all values of $x$ where $f(x) = 0$.
-
-#v(3cm)
+#table(
+  columns: (auto, auto, auto, auto),
+  align: center,
+  stroke: 0.5pt,
+  [*$x$*], [*$x^2$*], [*$2x$*], [*$x^2 + 2x$*],
+  [$1$], [$1$], [$2$], [$3$],
+  [$2$], [$4$], [$4$], [$8$],
+  [$3$], [$9$], [$6$], [$15$],
+  [$4$], [], [], [],
+  [$5$], [], [], [],
+)
 
 // ============================================================================
-// SECTION 9: CONFIGURATION OPTIONS
+// SECTION 8: CONFIGURATION REFERENCE
 // ============================================================================
 
-#pagebreak()
+#new-page(title: "Configuration Reference")
 
-= Template Configuration Reference
-
-This section shows the available configuration options for the worksheet template.
-
-== Basic Configuration
+== Basic Setup
 
 ```typst
-#import "/worksheet.typ": worksheet
+#import "/worksheet.typ": *
 
 #show: worksheet.with(
-  title: "My Worksheet",      // Worksheet title
-  class: "Grade 8 Math",      // Class/course name
-  show-date-field: true,      // Show Date: _____ field
-  show-name-field: true,      // Show Name: _____ field
+  title: "My Worksheet",
+  class: "Grade 8 Math",
+  show-answers: false,
 )
 ```
 
@@ -284,39 +318,51 @@ This section shows the available configuration options for the worksheet templat
   date: datetime.today(),
   show-date-field: true,
   show-name-field: true,
-  paper: "a4",                // or "us-letter"
+  show-answers: false,     // true for answer key
+  paper: "a4",             // or "us-letter"
   margin: (x: 2cm, y: 2cm),
   font: "Noto Sans",
   font-size: 11pt,
 )
 ```
 
-== Helper Functions
-
-The template provides these helper functions:
-
-- `#instructions[...]` - Blue instruction box
-- `#points(n)` - Show point value like "(5 pts)"
-- `#answer-line(width: 2cm)` - Underline for answers
-- `#workspace(height: 3cm)` - Add space for work
-
-== Math Syntax Quick Reference
+== Available Functions
 
 #table(
   columns: (auto, auto),
   stroke: 0.5pt,
   inset: 8pt,
-  [*Syntax*], [*Result*],
-  [`$x^2$`], [$x^2$],
-  [`$x_1$`], [$x_1$],
-  [`$frac(a, b)$`], [$frac(a, b)$],
-  [`$sqrt(x)$`], [$sqrt(x)$],
-  [`$times$`], [$times$],
-  [`$div$`], [$div$],
-  [`$plus.minus$`], [$plus.minus$],
-  [`$pi$`], [$pi$],
-  [`$theta$`], [$theta$],
-  [`$>=, <=, eq.not$`], [$>=, <=, eq.not$],
+  [*Function*], [*Description*],
+  [`#problem[...]`], [Numbered problem with auto counter],
+  [`#subproblem[...]`], [Sub-problem (a), (b), (c)],
+  [`#workspace(height: 4cm)`], [Blank vertical space],
+  [`#lined-workspace(lines: 4)`], [Lined writing space],
+  [`#box-workspace(height: 4cm)`], [Bordered workspace],
+  [`#grid-workspace(height: 5cm)`], [Graph paper area],
+  [`#answer[...]`], [Conditional answer (answer key only)],
+  [`#answer-line(body: [...])`], [Fill-in line with answer],
+  [`#answer-box(body: [...])`], [Answer box area],
+  [`#choices([A], [B], ...)`], [Multiple choice (auto-labeled A, B, C...)],
+  [`#instructions[...]`], [Blue instruction box],
+  [`#note[...]`], [Italic section note],
+  [`#divider()`], [Horizontal divider],
+  [`#new-page(title: none)`], [Page break with optional heading],
+  [`#blank`], [Blank in equations],
+  [`#boxed[...]`], [Blank that shows answer],
+)
+
+== Math Syntax Quick Reference
+
+#table(
+  columns: (auto, auto, auto, auto),
+  stroke: 0.5pt,
+  inset: 8pt,
+  [*Syntax*], [*Result*], [*Syntax*], [*Result*],
+  [`$x^2$`], [$x^2$], [`$x_1$`], [$x_1$],
+  [`$frac(a, b)$`], [$frac(a, b)$], [`$sqrt(x)$`], [$sqrt(x)$],
+  [`$times$`], [$times$], [`$div$`], [$div$],
+  [`$plus.minus$`], [$plus.minus$], [`$pi$`], [$pi$],
+  [`$>=, <=, eq.not$`], [$>=, <=, eq.not$], [`$theta$`], [$theta$],
 )
 
 #v(1em)

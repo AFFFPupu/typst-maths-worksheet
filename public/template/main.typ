@@ -1,86 +1,134 @@
 // ===========================================================================
-// MATH WORKSHEET - CONTENT
+// MATH WORKSHEET - Oxbridge Math Practice
 // Edit this file to change the worksheet problems.
 // Template logic is in worksheet.typ
 // ===========================================================================
 
-#import "/worksheet.typ": worksheet, instructions, workspace, points
+#import "/worksheet.typ": *
 
 #show: worksheet.with(
-  title: "Math Practice Worksheet",
-  class: "Grade 7-8 Mathematics",
+  title: "Oxbridge Mathematics Practice",
+  class: "Advanced Mathematics",
   show-date-field: true,
   show-name-field: true,
+  show-answers: false,  // Set to true to generate answer key
 )
 
-// ===========================================================================
-// WORKSHEET CONTENT - EDIT BELOW
-// ===========================================================================
+#instructions[Show all your work. Justify your answers with clear reasoning.]
 
-#instructions[Show all your work. Simplify all answers completely.]
+= Analysis and Calculus
 
-= Arithmetic
+#problem[Which is bigger: $2^x$ or $x^2$? Discuss for different values of $x$.]
 
-+ Calculate: $24 times 15 =$
+#problem(points: 3)[Sketch $y = A(1 - e^(-B x))^2$ where $A, B > 0$.]
 
-+ Simplify: $frac(48, 12) =$
+#problem(points: 4)[Differentiate $y = x^(sin x)$.]
 
-+ Find the value: $125 div 5 =$
+#answer[Using logarithmic differentiation: $y' = x^(sin x)(cos x ln x + (sin x)/x)$]
 
-+ Evaluate: $3^4 =$
+#problem[Find an approximation to $1^4 + 2^4 + 3^4 + dots.c + 100^4$.]
+
+#problem(points: 5)[
+  Evaluate the following integrals:
+]
+#subproblem(points: 2)[$integral_0^1 x e^x d x$]
+#subproblem(points: 3)[$integral_0^(pi/2) sin^3 x d x$]
+
+#problem[
+  If $f(x) = x^3 - 3x + 1$, find all values of $x$ where $f(x) = f'(x)$.
+]
 
 = Algebra
 
-+ Solve for $x$:
-  $ 3x + 7 = 22 $
+#problem[Solve for $x$: $sqrt(x + 5) = 7$]
 
-+ Solve for $y$:
-  $ 2(y - 3) = 14 $
+#answer[$x = 44$]
 
-+ Simplify the expression:
-  $ 4a + 3b - 2a + 5b $
+#problem[
+  Factor completely: $x^4 - 16$
+]
 
-+ Factor completely:
-  $ x^2 + 5x + 6 $
+#problem(points: 4)[
+  The polynomial $p(x) = x^3 + a x^2 + b x + c$ has roots $alpha$, $beta$, $gamma$.
+]
+#subproblem[Express $alpha^2 + beta^2 + gamma^2$ in terms of $a$, $b$, $c$.]
+#subproblem[If $alpha + beta + gamma = 0$ and $alpha beta + beta gamma + gamma alpha = -3$, find $alpha^2 + beta^2 + gamma^2$.]
 
-#pagebreak()
+#problem[
+  Solve the system:
+  $ x + y + z &= 6 \
+    x y + y z + z x &= 11 \
+    x y z &= 6 $
+]
 
-= Equations and Inequalities
+#new-page(title: "Geometry and Combinatorics")
 
-+ Solve the system of equations:
-  $
-  x + y &= 10 \
-  x - y &= 4
-  $
+#problem[
+  A circle passes through points $A(0, 0)$, $B(4, 0)$, and $C(0, 3)$. Find the radius of the circle.
+]
 
-+ Solve the inequality and graph the solution:
-  $ 2x - 5 < 11 $
+#problem(points: 5)[
+  In triangle $A B C$, $angle A = 60degree$, $b = 5$, and $c = 8$. Find side $a$.
+]
 
-= Geometry
+#problem[
+  How many ways can you arrange the letters in "MISSISSIPPI"?
+]
 
-+ Find the area of a rectangle with length $12$ cm and width $5$ cm.
+#choices(
+  [$11!$],
+  [$(11!)/(4! 4! 2!)$],
+  [$(11!)/(4! 4!)$],
+  [$11! / 2$],
+  correct: "B",
+)
 
-+ Calculate the perimeter of a triangle with sides $7$ cm, $8$ cm, and $9$ cm.
+#problem[
+  A regular hexagon has side length 2. Find its area.
+]
 
-+ A circle has radius $r = 7$ cm. Find its area. (Use $pi approx 3.14$)
+#box-workspace(height: 4cm)
 
-+ Find the volume of a rectangular prism with dimensions $4$ cm $times$ $5$ cm $times$ $6$ cm.
+= Number Theory
 
-= Word Problems
+#problem[
+  Find the last two digits of $7^(2024)$.
+]
 
-+ A store sells notebooks for \$3.50 each. If Maria buys 8 notebooks, how much does she pay in total?
+#problem(points: 4)[
+  Prove that $n^5 - n$ is divisible by 30 for all positive integers $n$.
+]
 
-+ A train travels at a constant speed of 80 km/h. How long will it take to travel 320 km?
+#lined-workspace(lines: 5)
 
-+ The sum of three consecutive integers is 72. Find the three integers.
+#problem[
+  Find all integer solutions to $x^2 + y^2 = z^2$ where $gcd(x, y, z) = 1$ and $x < y < z < 100$.
+]
 
-+ A rectangle has a perimeter of 36 cm. If the length is twice the width, find the dimensions of the rectangle.
+= Probability
+
+#problem[
+  Two dice are rolled. What is the probability that the sum is 7, given that at least one die shows a 4?
+]
+
+#answer[$2/11$]
+
+#problem(points: 5)[
+  A bag contains 5 red balls and 3 blue balls. Three balls are drawn without replacement.
+]
+#subproblem[What is the probability that all three are red?]
+#subproblem[What is the probability that exactly two are red?]
+#subproblem[What is the expected number of red balls drawn?]
 
 = Challenge Problems
 
-+ #points(5) Solve for $x$:
-  $ sqrt(x + 5) = 7 $
+#problem(points: 10)[
+  Let $f: RR -> RR$ be a function such that $f(x + y) = f(x) + f(y)$ for all $x, y in RR$.
+  If $f$ is continuous at $x = 0$, prove that $f(x) = c x$ for some constant $c$.
+]
 
-+ #points(5) If $f(x) = 2x^2 - 3x + 1$, find $f(4)$.
+#lined-workspace(lines: 8)
 
-+ #points(5) The ratio of boys to girls in a class is $3:5$. If there are 24 students in total, how many girls are there?
+#problem(points: 10)[
+  Evaluate: $ sum_(n=1)^oo 1/(n(n+1)(n+2)) $
+]
