@@ -1,4 +1,4 @@
-# Template: Math Worksheet
+# Math Worksheet Template
 
 A student-friendly math worksheet template with fill-in fields for Name and Date, suitable for elementary through high school math classes.
 
@@ -8,12 +8,12 @@ A student-friendly math worksheet template with fill-in fields for Name and Date
 
 | File | Purpose |
 |------|---------|
-| `worksheet.typ` | Template logic - styling, layout, helper functions |
-| `main.typ` | **EDIT THIS** - Worksheet problem content |
-| `demo.typ` | Examples and reference for all features |
-| `assets/` | Store images here (PNG, JPG, SVG, WebP) |
+| `public/template/worksheet.typ` | Template logic - styling, layout, helper functions |
+| `public/template/main.typ` | **EDIT THIS** - Worksheet problem content |
+| `public/template/demo.typ` | Examples and reference for all features |
+| `public/template/assets/` | Store images here (PNG, JPG, SVG, WebP) |
 
-**Full Syntax Guide**: See [SYNTAX.md](../../SYNTAX.md) at project root.
+**Full Syntax Guide**: See `SYNTAX.md` at project root.
 
 ---
 
@@ -258,8 +258,8 @@ font: "Linux Libertine"  // Academic serif
 
 When editing this template:
 
-1. **Edit `main.typ`** for worksheet content
-2. **Reference `demo.typ`** for syntax examples
+1. **Edit `public/template/main.typ`** for worksheet content
+2. **Reference `public/template/demo.typ`** for syntax examples
 3. **Don't modify `worksheet.typ`** unless changing template behavior
 4. **Use absolute paths** for imports: `#import "/worksheet.typ": ...`
 
@@ -276,5 +276,5 @@ When editing this template:
 ## Need Help?
 
 1. Check `demo.typ` for working examples
-2. See [SYNTAX.md](../../SYNTAX.md) for complete reference
+2. See `SYNTAX.md` for complete reference
 3. Visit https://typst.app/docs for official documentation
