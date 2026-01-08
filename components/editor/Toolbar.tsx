@@ -33,7 +33,7 @@ export function Toolbar({
       >
         <div className="flex items-center gap-2">
           <FileText className="h-5 w-5 text-primary" />
-          <span className="font-semibold text-lg">Typst Viewer</span>
+          <span className="font-semibold text-lg">Maths Worksheet Builder</span>
         </div>
 
         <div className="flex items-center gap-2">

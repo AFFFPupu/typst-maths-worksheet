@@ -1,497 +1,325 @@
 // ============================================================================
-// TYPST DEMO FILE
-// This file demonstrates all major Typst features and syntax.
-// Use this as a reference when creating your documents.
+// MATH WORKSHEET DEMO
+// This file demonstrates all features of the math worksheet template.
+// Use this as a reference when creating your worksheets.
 // ============================================================================
 
-// ----------------------------------------------------------------------------
-// PAGE SETUP
-// ----------------------------------------------------------------------------
+#import "/worksheet.typ": worksheet, instructions, workspace, points, answer-line, problem-grid
 
-#set page(
-  paper: "a4",
-  margin: (x: 2cm, y: 2.5cm),
-  numbering: "1",
-  header: align(right)[_Typst Demo_],
+#show: worksheet.with(
+  title: "Math Worksheet Feature Demo",
+  class: "Template Reference",
+  show-date-field: true,
+  show-name-field: true,
 )
 
-#set text(font: "Noto Sans", size: 11pt)
-#set par(justify: true, leading: 0.65em)
-#set heading(numbering: "1.1")
-
-// ----------------------------------------------------------------------------
-// TITLE
-// ----------------------------------------------------------------------------
-
-#align(center)[
-  #text(size: 24pt, weight: "bold")[Typst Feature Demo]
-
-  #v(0.5em)
-
-  #text(size: 12pt, fill: gray)[A comprehensive showcase of Typst syntax]
-
-  #v(0.3em)
-
-  #line(length: 40%, stroke: 2pt + blue)
-]
-
-#v(1em)
-
-// ----------------------------------------------------------------------------
-// TABLE OF CONTENTS
-// ----------------------------------------------------------------------------
-
-#outline(
-  title: [Contents],
-  indent: auto,
-)
-
-#pagebreak()
-
 // ============================================================================
-// SECTION 1: TEXT FORMATTING
+// SECTION 1: BASIC PROBLEM FORMATS
 // ============================================================================
 
-= Text Formatting
+= Basic Problem Formats
 
-== Basic Formatting
+== Simple Numbered Problems
 
-This is *bold text*, this is _italic text_, and this is *_bold italic_*.
+Use `+` to create automatically numbered problems:
 
-You can also use `inline code` for technical terms.
++ What is $5 + 7$?
 
-#underline[Underlined text] and #strike[strikethrough text] are also available.
++ Calculate $12 times 8$.
 
-For #smallcaps[Small Caps] and #super[superscript] or #sub[subscript].
++ Simplify $frac(24, 6)$.
 
-== Text Styling with Functions
+== Problems with Point Values
 
-#text(fill: red)[Red text] |
-#text(fill: blue)[Blue text] |
-#text(fill: green)[Green text]
+Use `#points(n)` to show point values:
 
-#text(size: 8pt)[Small] |
-#text(size: 11pt)[Normal] |
-#text(size: 14pt)[Large] |
-#text(size: 18pt)[Larger]
++ #points(2) Solve: $x + 5 = 12$
 
-#text(weight: "light")[Light] |
-#text(weight: "regular")[Regular] |
-#text(weight: "bold")[Bold]
++ #points(3) Factor: $x^2 - 9$
 
-#text(font: "Fira Code")[Monospace font for code]
-
-== Paragraphs and Line Breaks
-
-This is the first paragraph. It contains multiple sentences that flow together naturally.
-
-This is the second paragraph, separated by a blank line.
-
-Use backslash for a line break:\
-This continues on a new line without a paragraph break.
++ #points(5) Solve the system:
+  $
+  2x + y &= 7 \
+  x - y &= 2
+  $
 
 // ============================================================================
-// SECTION 2: HEADINGS
+// SECTION 2: MATH EXPRESSIONS
 // ============================================================================
 
-= Headings
-
-== Level 2 Heading
-
-=== Level 3 Heading
-
-==== Level 4 Heading
-
-Headings are automatically numbered based on the `#set heading(numbering: "1.1")` rule.
-
-// ============================================================================
-// SECTION 3: LISTS
-// ============================================================================
-
-= Lists
-
-== Bullet Lists
-
-- First item
-- Second item
-  - Nested item A
-  - Nested item B
-    - Deeply nested
-- Third item
-
-== Numbered Lists
-
-+ First step
-+ Second step
-  + Sub-step A
-  + Sub-step B
-+ Third step
-
-== Term Lists (Definitions)
-
-/ Typst: A modern markup-based typesetting system
-/ LaTeX: A document preparation system
-/ Markdown: A lightweight markup language
-
-// ============================================================================
-// SECTION 4: LINKS & REFERENCES
-// ============================================================================
-
-= Links and References
-
-== External Links
-
-Visit https://typst.app for the official website.
-
-Or use custom text: #link("https://typst.app/docs")[Typst Documentation]
-
-== Labels and References
-
-This section has a label. <links-section>
-
-You can reference it: see @links-section for details.
-
-== Footnotes
-
-Typst supports footnotes#footnote[This is a footnote. It appears at the bottom of the page.] which are useful for citations and additional information.
-
-// ============================================================================
-// SECTION 5: MATHEMATICS
-// ============================================================================
-
-= Mathematics
+= Math Expressions
 
 == Inline Math
 
-The famous equation $E = m c^2$ changed physics forever.
-
-The quadratic formula gives $x = (-b plus.minus sqrt(b^2 - 4 a c)) / (2 a)$.
+Use single `$` for inline: The area formula is $A = pi r^2$.
 
 == Block Math
 
-The sum of first $n$ natural numbers:
+Use `$ ... $` with spaces for centered equations:
 
-$ sum_(k=1)^n k = (n(n+1)) / 2 $
+$ x = frac(-b plus.minus sqrt(b^2 - 4a c), 2a) $
 
-The Gaussian integral:
+== Common Operations
 
-$ integral_(-infinity)^(infinity) e^(-x^2) dif x = sqrt(pi) $
+*Fractions:*
+$ frac(1, 2) + frac(1, 3) = frac(5, 6) $
 
-== Fractions and Roots
+*Square roots:*
+$ sqrt(16) = 4 quad sqrt(x^2 + y^2) $
 
-$ 1/2 + 1/3 = 5/6 $
+*Exponents:*
+$ 2^3 = 8 quad x^(n+1) $
 
-$ sqrt(x^2 + y^2) = r $
-
-$ root(3, 8) = 2 $
-
-== Subscripts and Superscripts
-
-$ x_1, x_2, ..., x_n $
-
-$ a^2 + b^2 = c^2 $
-
-$ x_(i+1)^(n-1) $
+*Subscripts:*
+$ x_1, x_2, x_3 quad a_(i+1) $
 
 == Greek Letters
 
-$ alpha, beta, gamma, delta, epsilon $
-
-$ pi approx 3.14159 $
-
-$ Gamma(n) = (n-1)! $
-
-== Matrices
-
-$ mat(
-  1, 2, 3;
-  4, 5, 6;
-  7, 8, 9
-) $
-
-$ vec(x, y, z) $
+$ alpha, beta, gamma, delta, theta, pi, sigma, omega $
 
 == Aligned Equations
 
 $
-f(x) &= x^2 + 2x + 1 \
-     &= (x + 1)^2
+3x + 2 &= 14 \
+3x &= 12 \
+x &= 4
 $
 
-== Common Symbols
+== Systems of Equations
 
 $
-forall x in RR: x^2 >= 0 \
-exists n in NN: n > 0 \
-A subset B implies A sect B = A \
-a eq.not b "means" a "is not equal to" b
+cases(
+  x + y = 10,
+  x - y = 4
+)
 $
 
 // ============================================================================
-// SECTION 6: TABLES
+// SECTION 3: PROBLEM LAYOUTS
 // ============================================================================
 
-= Tables
+= Problem Layouts
 
-== Basic Table
+== Two-Column Grid
 
-#table(
-  columns: (auto, auto, auto),
-  [*Name*], [*Age*], [*City*],
-  [Alice], [28], [New York],
-  [Bob], [34], [London],
-  [Carol], [25], [Tokyo],
-)
-
-== Styled Table
-
-#table(
-  columns: (1fr, 2fr, 1fr),
-  align: (left, center, right),
-  stroke: 1pt,
-  fill: (x, y) => if y == 0 { blue.lighten(80%) } else if calc.odd(y) { gray.lighten(90%) },
-  inset: 10pt,
-  [*Feature*], [*Description*], [*Status*],
-  [Tables], [Create structured data layouts], [Done],
-  [Math], [Beautiful mathematical typesetting], [Done],
-  [Figures], [Images with captions], [Done],
-  [Lists], [Bullet and numbered lists], [Done],
-)
-
-// ============================================================================
-// SECTION 7: FIGURES AND IMAGES
-// ============================================================================
-
-= Figures and Images
-
-== Image Placeholder
-
-Since we don't have actual images, here's how you would include them:
-
-```typst
-#image("/assets/logo.png", width: 50%)
-
-#figure(
-  image("/assets/diagram.png", width: 80%),
-  caption: [A descriptive caption],
-)
-```
-
-== Figure with Caption (Box Placeholder)
-
-#figure(
-  rect(
-    width: 200pt,
-    height: 150pt,
-    fill: gray.lighten(80%),
-    stroke: 1pt + gray,
-  )[
-    #align(center + horizon)[
-      #text(fill: gray)[Image Placeholder]
-    ]
-  ],
-  caption: [This is how a figure with caption appears],
-)
-
-// ============================================================================
-// SECTION 8: CODE BLOCKS
-// ============================================================================
-
-= Code Blocks
-
-== Inline Code
-
-Use the `print()` function to output text.
-
-== Code Block with Syntax Highlighting
-
-```python
-def fibonacci(n):
-    """Calculate the nth Fibonacci number."""
-    if n <= 1:
-        return n
-    return fibonacci(n - 1) + fibonacci(n - 2)
-
-# Example usage
-for i in range(10):
-    print(f"F({i}) = {fibonacci(i)}")
-```
-
-```javascript
-function greet(name) {
-  return `Hello, ${name}!`;
-}
-
-console.log(greet("World"));
-```
-
-// ============================================================================
-// SECTION 9: BOXES AND CALLOUTS
-// ============================================================================
-
-= Boxes and Callouts
-
-== Simple Rectangle
-
-#rect(
-  width: 100%,
-  fill: blue.lighten(90%),
-  stroke: 1pt + blue,
-  radius: 4pt,
-  inset: 12pt,
-)[
-  *Note:* This is a simple callout box for highlighting important information.
-]
-
-== Warning Box
-
-#rect(
-  width: 100%,
-  fill: rgb("#fff3cd"),
-  stroke: 1pt + rgb("#856404"),
-  radius: 4pt,
-  inset: 12pt,
-)[
-  *Warning:* Be careful with this operation. It cannot be undone.
-]
-
-== Info Box with Header
-
-#rect(
-  width: 100%,
-  stroke: 2pt + green,
-  radius: 4pt,
-)[
-  #rect(width: 100%, fill: green.lighten(90%), inset: 8pt)[
-    *Tip: Best Practice*
-  ]
-  #pad(x: 10pt, y: 8pt)[
-    Always test your code before deploying to production.
-  ]
-]
-
-// ============================================================================
-// SECTION 10: LAYOUT
-// ============================================================================
-
-= Layout
-
-== Alignment
-
-#align(left)[Left aligned text]
-#align(center)[Center aligned text]
-#align(right)[Right aligned text]
-
-== Grid Layout
+Use grids for side-by-side problems:
 
 #grid(
   columns: (1fr, 1fr),
-  gutter: 1em,
-  rect(fill: blue.lighten(80%), inset: 1em)[Column 1],
-  rect(fill: green.lighten(80%), inset: 1em)[Column 2],
+  gutter: 2em,
+  [
+    + $15 + 27 =$
+    + $48 - 19 =$
+    + $6 times 7 =$
+  ],
+  [
+    + $56 div 8 =$
+    + $3^4 =$
+    + $sqrt(81) =$
+  ],
 )
 
-== Two Columns
+== Problem with Work Space
 
-#columns(2, gutter: 2em)[
-  *First Column*
+Add space for student work using `#v(height)`:
 
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore.
++ Solve for $x$: $quad 2x + 7 = 15$
 
-  #colbreak()
+#v(2.5cm)
 
-  *Second Column*
++ Find the area of a triangle with base $10$ cm and height $6$ cm.
 
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo.
-]
-
-== Horizontal Line
-
-#line(length: 100%, stroke: 1pt + gray)
-
-== Spacing
-
-Text before
-#v(2em)
-Text after vertical space
-
-Left #h(1fr) Right (fill space)
+#v(2.5cm)
 
 // ============================================================================
-// SECTION 11: VARIABLES AND LOGIC
+// SECTION 4: SPECIAL ELEMENTS
 // ============================================================================
 
-= Variables and Logic
+= Special Elements
 
-== Variables
+== Instructions Box
 
-#let project-name = "Typst Demo"
-#let version = "1.0"
-#let items = ("Apple", "Banana", "Cherry")
-
-Project: *#project-name* (v#version)
-
-== Loops
-
-Fruits:
-#for item in items [
-  - #item
+#instructions[
+  Show all your work. Circle your final answers. No calculators allowed.
 ]
 
-== Conditionals
+== Answer Lines
 
-#let score = 85
+Fill in the blank: The value of $pi$ is approximately #answer-line(width: 1.5cm).
 
-#if score >= 90 [
-  Grade: *A* (Excellent!)
-] else if score >= 80 [
-  Grade: *B* (Good job!)
-] else [
-  Grade: *C* (Keep trying!)
-]
+The solution to $x + 5 = 12$ is $x =$ #answer-line().
 
-== Custom Functions
+== Tables for Data
 
-#let highlight(content, color: yellow) = {
-  box(fill: color.lighten(70%), inset: 2pt, radius: 2pt)[#content]
-}
+#table(
+  columns: (auto, auto, auto, auto),
+  align: center,
+  stroke: 0.5pt,
+  [*$x$*], [*$x^2$*], [*$2x$*], [*$x^2 + 2x$*],
+  [$1$], [$1$], [$2$], [$3$],
+  [$2$], [$4$], [$4$], [$8$],
+  [$3$], [$9$], [$6$], [$15$],
+  [$4$], [], [], [],
+  [$5$], [], [], [],
+)
 
-This is #highlight[highlighted text] in a sentence.
-
-This is #highlight(color: green)[green highlighted].
+Complete the table above.
 
 // ============================================================================
-// SECTION 12: PAGE BREAK
+// SECTION 5: GEOMETRY
+// ============================================================================
+
+= Geometry Problems
+
+== Formulas Reference
+
+#rect(
+  width: 100%,
+  fill: gray.lighten(90%),
+  stroke: 0.5pt,
+  inset: 10pt,
+  radius: 4pt,
+)[
+  *Formulas:*
+  - Rectangle: $A = l times w$, $P = 2l + 2w$
+  - Circle: $A = pi r^2$, $C = 2 pi r$
+  - Triangle: $A = frac(1, 2) b h$
+]
+
+#v(0.5em)
+
++ A rectangle has length $8$ cm and width $5$ cm. Find its area and perimeter.
+
++ A circle has diameter $14$ cm. Find its circumference. (Use $pi = frac(22, 7)$)
+
+// ============================================================================
+// SECTION 6: WORD PROBLEMS
+// ============================================================================
+
+= Word Problems
+
++ Maria has \$50. She buys 3 books at \$8 each and 2 pens at \$2 each. How much money does she have left?
+
+#v(2cm)
+
++ A train leaves Station A at 9:00 AM traveling at 60 km/h. Another train leaves Station B at 10:00 AM traveling toward Station A at 80 km/h. If the stations are 280 km apart, at what time will they meet?
+
+#v(2cm)
+
+// ============================================================================
+// SECTION 7: MULTIPLE CHOICE
+// ============================================================================
+
+= Multiple Choice
+
++ What is the value of $3^2 + 4^2$?
+
+  #grid(
+    columns: (1fr, 1fr, 1fr, 1fr),
+    [(A) 7], [(B) 12], [(C) 25], [(D) 49]
+  )
+
++ Which expression is equivalent to $2(x + 3)$?
+
+  #grid(
+    columns: (1fr, 1fr),
+    gutter: 1em,
+    [(A) $2x + 3$], [(B) $2x + 6$],
+    [(C) $x + 6$], [(D) $2x + 5$]
+  )
+
+// ============================================================================
+// SECTION 8: CHALLENGE SECTION
+// ============================================================================
+
+= Challenge Problems
+
+#rect(
+  width: 100%,
+  fill: yellow.lighten(85%),
+  stroke: 1pt + orange,
+  inset: 10pt,
+  radius: 4pt,
+)[
+  *Bonus:* These problems are worth extra credit.
+]
+
++ #points(10) Prove that the sum of any three consecutive integers is divisible by 3.
+
+#v(3cm)
+
++ #points(10) If $f(x) = x^2 - 4x + 3$, find all values of $x$ where $f(x) = 0$.
+
+#v(3cm)
+
+// ============================================================================
+// SECTION 9: CONFIGURATION OPTIONS
 // ============================================================================
 
 #pagebreak()
 
-= Final Notes
+= Template Configuration Reference
 
-== Summary
+This section shows the available configuration options for the worksheet template.
 
-This demo has covered:
+== Basic Configuration
 
-+ Text formatting and styling
-+ Headings and document structure
-+ Various list types
-+ Links, references, and footnotes
-+ Mathematical typesetting
-+ Tables with styling
-+ Figures and images
-+ Code blocks
-+ Callout boxes
-+ Layout and alignment
-+ Variables, loops, and conditionals
+```typst
+#import "/worksheet.typ": worksheet
 
-== Resources
+#show: worksheet.with(
+  title: "My Worksheet",      // Worksheet title
+  class: "Grade 8 Math",      // Class/course name
+  show-date-field: true,      // Show Date: _____ field
+  show-name-field: true,      // Show Name: _____ field
+)
+```
 
-For more information, see:
-- Official Documentation: https://typst.app/docs
-- Package Registry: https://typst.app/universe
-- GitHub Repository: https://github.com/typst/typst
+== All Options
 
-#v(2em)
+```typst
+#show: worksheet.with(
+  title: "Algebra Test",
+  class: "Math 101",
+  date: datetime.today(),
+  show-date-field: true,
+  show-name-field: true,
+  paper: "a4",                // or "us-letter"
+  margin: (x: 2cm, y: 2cm),
+  font: "Noto Sans",
+  font-size: 11pt,
+)
+```
+
+== Helper Functions
+
+The template provides these helper functions:
+
+- `#instructions[...]` - Blue instruction box
+- `#points(n)` - Show point value like "(5 pts)"
+- `#answer-line(width: 2cm)` - Underline for answers
+- `#workspace(height: 3cm)` - Add space for work
+
+== Math Syntax Quick Reference
+
+#table(
+  columns: (auto, auto),
+  stroke: 0.5pt,
+  inset: 8pt,
+  [*Syntax*], [*Result*],
+  [`$x^2$`], [$x^2$],
+  [`$x_1$`], [$x_1$],
+  [`$frac(a, b)$`], [$frac(a, b)$],
+  [`$sqrt(x)$`], [$sqrt(x)$],
+  [`$times$`], [$times$],
+  [`$div$`], [$div$],
+  [`$plus.minus$`], [$plus.minus$],
+  [`$pi$`], [$pi$],
+  [`$theta$`], [$theta$],
+  [`$>=, <=, eq.not$`], [$>=, <=, eq.not$],
+)
+
+#v(1em)
 
 #align(center)[
   #rect(
@@ -500,6 +328,6 @@ For more information, see:
     radius: 4pt,
   )[
     *End of Demo* \
-    Happy typesetting!
+    See SYNTAX.md for complete Typst reference
   ]
 ]
